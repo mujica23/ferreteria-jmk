@@ -139,6 +139,10 @@ app.delete("/productos/:id", verificarToken, soloAdmin, (req, res) => {
 /* ================= SERVIDOR ================= */
 const PORT = process.env.PORT || 3000;
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "index.html"));
+});
+
 app.listen(PORT, () => {
   console.log("🚀 Backend corriendo en puerto", PORT);
 });
