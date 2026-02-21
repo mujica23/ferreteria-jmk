@@ -1,4 +1,4 @@
-const API = "http://localhost:3000";
+const API = "https://TU-DOMINIO.up.railway.app";
 
 /* ================= VARIABLES ================= */
 const productosDiv = document.getElementById("productos");
