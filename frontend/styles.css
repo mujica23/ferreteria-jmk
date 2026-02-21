@@ -1,0 +1,350 @@
+/* ================= VARIABLES ================= */
+:root {
+  /* tonos grises para fondos */
+  --bg-dark: #121212; /* casi negro */
+  --bg: #1a1a1a; /* gris muy oscuro */
+  --bg-medium: #2e2e2e; /* gris medio */
+  --bg-light: #3f3f3f; /* gris claro */
+
+  --card: #1e1e1e; /* Negro → Gris */
+  --text: #eeeeee; /* Blanco */
+    --accent: #ff6200; /* Naranja suave */
+  --accent-hover: #e65a00; /* Naranja más claro */
+}
+
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box; 
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 25px;
+  /* fondo naranja similar a la sombra de las cards */
+  background: var(--accent);
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /* sombra sutil en naranja oscuro */
+  box-shadow: 0 2px 8px rgba(255,98,0,0.4);
+  animation: slideDown .5s ease;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+input,
+select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  background: #d6d6d6; /* Gris claro */
+  color: #1c1c1c;
+  transition: box-shadow .3s ease;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+/* ================= CONTENEDOR ================= */
+.container { padding: 20px; }
+
+/* ================= GRID ================= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* ================= CARDS ================= */
+.card {
+  background: var(--card);
+  padding: 15px;
+  border-radius: 12px;
+  /* sombra más suave para que no choque con el fondo oscuro */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  transition:
+    transform .35s cubic-bezier(.22,1,.36,1),
+    box-shadow .35s cubic-bezier(.22,1,.36,1);
+  animation: fadeUp .5s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  /* sombra menos contrastante, mantiene el efecto naranja pero con transparencia */
+  box-shadow: 0 16px 36px rgba(255, 98, 0, 0.6);
+}
+
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform .5s ease;
+}
+
+.card:hover img { transform: scale(1.08); }
+
+/* ================= BOTONES ================= */
+.btn {
+  position: relative;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: .4px;
+  color: #fff;
+  background: var(--accent);
+  overflow: hidden;
+
+  transition:
+    transform .2s cubic-bezier(.22,1,.36,1),
+    box-shadow .2s cubic-bezier(.22,1,.36,1),
+    filter .2s ease;
+
+  box-shadow: 0 8px 22px rgba(255,106,0,.4);
+}
+
+.btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  filter: brightness(1.1);
+  box-shadow: 0 18px 38px rgb(0, 0, 0);
+}
+
+.btn:active {
+  transform: scale(.92);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.954);
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,.35) 10%, transparent 10%);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform .4s ease, opacity .4s ease;
+}
+
+.btn:active::after {
+  transform: scale(2.5);
+  opacity: 1;
+}
+
+.danger { background: var(--danger); }
+
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ================= MÁS VENDIDOS ================= */
+.best-section { padding: 20px; }
+
+/* slider horizontal auto-scroll effect */
+.slider {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+  /* animación continua hacia la izquierda */
+  animation: autoScroll 20s linear infinite;
+}
+
+.slider .card {
+  min-width: 240px;
+  scroll-snap-align: start;
+  animation: slideIn .5s ease both;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* anima el slider moviéndose hacia la izquierda para simular desplazamiento continuo */
+@keyframes autoScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ================= CARRITO ================= */
+.cart-section {
+  margin-top: 30px;
+  background: #534d4de4; /* Gris claro */
+  padding: 20px;
+  border-radius: 12px;
+  animation: fadeUp .5s ease;
+}
+
+.cart-section li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  /* borde más discreto para no chocar con el fondo */
+  border-bottom: 1px solid var(--bg-light);
+  padding-bottom: 8px;
+  animation: addItem .3s ease;
+}
+
+@keyframes addItem {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cart-icon {
+  font-weight: bold;
+  color: var(--accent);
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* ================= BOTONES MODERNOS (LOGIN / AGREGAR / PAGAR) ================= */
+
+.blob-btn {
+  position: relative;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  overflow: hidden;
+  transition: all 0.4s ease;
+  z-index: 1;
+}
+
+/* fondo animado */
+.blob-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  z-index: -1;
+  border-radius: 30px;
+}
+
+/* hover */
+.blob-btn:hover {
+  color: #ffffff;
+}
+
+.blob-btn:hover::before {
+  transform: scaleX(1);
+}
+
+/* efecto click */
+.blob-btn:active {
+  transform: scale(0.95);
+}
+
+/* VARIANTES */
+
+/* LOGIN */
+#login-btn.blob-btn {
+  border-color: #000000;
+  color: #000000;
+}
+
+#login-btn.blob-btn::before {
+  background: #000000;
+}
+
+/* hover específico del botón login: usar gris tenue en lugar de negro sólido */
+#login-btn.blob-btn:hover {
+  color: #000000; /* mantener texto oscuro */
+}
+
+#login-btn.blob-btn:hover::before {
+  background: #444444; /* gris oscuro en hover para que el botón destaque sin desaparecer */
+}
+
+/* PAGAR */
+.cart-section .blob-btn {
+  border-color: #ff6200;
+  color: #ff6200;
+}
+
+.cart-section .blob-btn::before {
+  background: #ff6200;
+}
+
+/* AGREGAR (si lo creas en JS) */
+.agregar-btn.blob-btn {
+  border-color: #ff8c1a;
+  color: #ff8c1a;
+}
+
+.agregar-btn.blob-btn::before {
+  background: #ff8c1a;
+}
+/* ===== FORZAR BOTON AGREGAR ===== */
+.agregar-btn {
+  position: relative !important;
+  padding: 12px 28px !important;
+  border-radius: 30px !important;
+  border: 2px solid #ff6200 !important;
+  background: transparent !important;
+  color: #ff6200 !important;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.agregar-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #ff6200;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  z-index: -1;
+  border-radius: 30px;
+}
+
+.agregar-btn:hover {
+  color: #ffffff !important;
+}
+
+.agregar-btn:hover::before {
+  transform: scaleX(1);
+}

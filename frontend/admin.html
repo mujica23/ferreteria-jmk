@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin</title>
+</head>
+<body>
+
+<h2>Panel Admin</h2>
+
+<form id="form" enctype="multipart/form-data">
+  <input type="hidden" id="id">
+
+  <input type="text" name="nombre" placeholder="Nombre" required>
+  <input type="number" name="precio" placeholder="Precio" required>
+  <input type="number" name="stock" placeholder="Stock" required>
+  <input type="text" name="marca" placeholder="Marca" required>
+
+  <input type="file" name="imagen">
+
+  <button>Guardar</button>
+</form>
+
+<hr>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Stock</th>
+      <th>Editar</th>
+      <th>Eliminar</th>
+    </tr>
+  </thead>
+  <tbody id="tabla"></tbody>
+</table>
+
+<script>
+const token = localStorage.getItem("token");
+if (!token) window.location.href="login.html";
+
+const form = document.getElementById("form");
+
+function cargar() {
+  fetch("http://localhost:3000/productos", {
+    headers:{Authorization:"Bearer "+token}
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    const tabla=document.getElementById("tabla");
+    tabla.innerHTML="";
+    data.forEach(p=>{
+      tabla.innerHTML+=`
+        <tr>
+          <td>${p.id}</td>
+          <td>${p.nombre}</td>
+          <td>${p.precio}</td>
+          <td>${p.stock}</td>
+          <td><button onclick="editar(${p.id},'${p.nombre}',${p.precio},${p.stock},'${p.marca}')">Editar</button></td>
+          <td><button onclick="eliminar(${p.id})">X</button></td>
+        </tr>
+      `;
+    });
+  });
+}
+
+function editar(id,nombre,precio,stock,marca){
+  document.getElementById("id").value=id;
+  form.nombre.value=nombre;
+  form.precio.value=precio;
+  form.stock.value=stock;
+  form.marca.value=marca;
+}
+
+function eliminar(id){
+  fetch("http://localhost:3000/productos/"+id,{
+    method:"DELETE",
+    headers:{Authorization:"Bearer "+token}
+  }).then(()=>cargar());
+}
+
+form.addEventListener("submit", async e=>{
+  e.preventDefault();
+
+  const id=document.getElementById("id").value;
+  const formData=new FormData(form);
+
+  if(id){
+    await fetch("http://localhost:3000/productos/"+id,{
+      method:"PUT",
+      headers:{Authorization:"Bearer "+token},
+      body:formData
+    });
+  }else{
+    await fetch("http://localhost:3000/productos",{
+      method:"POST",
+      headers:{Authorization:"Bearer "+token},
+      body:formData
+    });
+  }
+
+  form.reset();
+  document.getElementById("id").value="";
+  cargar();
+});
+
+cargar();
+</script>
+
+</body>
+</html>

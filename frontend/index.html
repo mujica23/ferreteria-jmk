@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ferretería JMK</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="navbar">
+  <h1> Ferretería JMK</h1>
+
+  <div class="header-actions">
+    <input type="text" id="search" placeholder="Buscar producto...">
+
+    <select id="brand-filter">
+      <option value="all">Todas las marcas</option>
+    </select>
+<div id="nav-actions">
+  <button id="login-btn" onclick="window.location.href='login.html'">Login</button>
+  <button id="logout" style="display:none;">Logout</button>
+</div>
+
+    <!-- LOGIN NAVBAR -->
+    <a id="login-btn" class="blob-btn" href="login.html">
+      Login
+      <span class="blob-btn__inner">
+        <span class="blob-btn__blobs">
+          <span class="blob-btn__blob"></span>
+          <span class="blob-btn__blob"></span>
+          <span class="blob-btn__blob"></span>
+          <span class="blob-btn__blob"></span>
+        </span>
+      </span>
+    </a>
+
+    <button id="logout" class="btn danger" style="display:none">Cerrar sesión</button>
+    <span id="user-name" class="user-name" style="display:none"></span>
+
+    <span class="cart-icon" id="open-cart">🛒 <span id="cart-count">0</span></span>
+  </div>
+</header>
+
+<!-- LOGIN -->
+<section id="login-section" class="card login" style="display:none">
+  <button class="close-login" id="close-login">&times;</button>
+  <h2>Iniciar sesión</h2>
+  <form id="login-form">
+    <input id="usuario" placeholder="admin o cliente" required>
+    <input type="password" placeholder="contraseña" required>
+
+    <!-- BOTÓN ENTRAR -->
+    <button type="submit" class="blob-btn">
+      Entrar
+      <span class="blob-btn__inner">
+        <span class="blob-btn__blobs">
+          <span class="blob-btn__blob"></span>
+          <span class="blob-btn__blob"></span>
+          <span class="blob-btn__blob"></span>
+          <span class="blob-btn__blob"></span>
+        </span>
+      </span>
+    </button>
+  </form>
+</section>
+
+<!-- MAS VENDIDOS -->
+<section class="best-section">
+  <h2> Más vendidos</h2>
+  <div id="best-slider" class="slider"></div>
+</section>
+
+<main class="container">
+
+  <section id="panel-admin" style="display:none">
+    <h2>Panel Admin</h2>
+    <p>Gestión futura de productos</p>
+  </section>
+
+  <section id="panel-cliente">
+    <h2>Productos</h2>
+    <div id="productos" class="grid"></div>
+  </section>
+
+  <!-- CARRITO -->
+  <section class="cart-section" id="cart-panel">
+    <button class="close-cart" id="close-cart">&times;</button>
+    <h2>🛒 Carrito</h2>
+    <ul id="cart-items"></ul>
+    <p><strong>Total:</strong> <span id="cart-total">$0</span></p>
+
+    <!-- BOTÓN PAGAR -->
+    <button id="pay-btn" class="blob-btn">
+      Pagar
+      <span class="blob-btn__inner">
+        <span class="blob-btn__blobs">
+          <span class="blob-btn__blob"></span>
+          <span class="blob-btn__blob"></span>
+          <span class="blob-btn__blob"></span>
+          <span class="blob-btn__blob"></span>
+        </span>
+      </span>
+    </button>
+  </section>
+
+</main>
+
+<footer>© 2026 Ferretería JMK</footer>
+
+<div id="imagenes"></div>
+
+<script src="script.js"></script>
+
+<!-- FILTRO GOO PARA EFECTO LÍQUIDO -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:none;">
+  <defs>
+    <filter id="goo">
+      <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+      <feColorMatrix in="blur" mode="matrix"
+        values="1 0 0 0 0  
+                0 1 0 0 0  
+                0 0 1 0 0  
+                0 0 0 21 -7"
+        result="goo">
+      </feColorMatrix>
+      <feBlend in="SourceGraphic" in2="goo"></feBlend>
+    </filter>
+  </defs>
+</svg>
+
+</body>
+</html>

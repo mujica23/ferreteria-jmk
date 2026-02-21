@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pago - Ferretería JMK</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .payment-card {
+      max-width: 500px;
+      margin: 40px auto;
+    }
+    .payment-card label {
+      display: block;
+      margin-bottom: 12px;
+    }
+    .payment-card input, .payment-card select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background: var(--card);
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <h1>Formulario de Pago</h1>
+  </header>
+
+  <main class="container">
+    <section class="card payment-card">
+      <h2>Datos personales y de pago</h2>
+      <form id="payment-form">
+        <!-- Datos personales (ahora integrados) -->
+        <label>
+          Nombre completo
+          <input type="text" name="fullname" required>
+        </label>
+        <label>
+          Dirección
+          <input type="text" name="address" required>
+        </label>
+        <label>
+          Teléfono
+          <input type="tel" name="phone" required>
+        </label>
+
+        <hr style="opacity:.08; margin:12px 0;">
+
+        <!-- Datos de pago -->
+        <label>
+          Nombre en la tarjeta
+          <input type="text" name="cardname" required>
+        </label>
+        <label>
+          Número de tarjeta
+          <input type="text" name="cardnumber" maxlength="19" placeholder="xxxx xxxx xxxx xxxx" required pattern="\\d{13,19}" title="Solo números, 13-19 dígitos">
+        </label>
+        <label>
+          Tipo de tarjeta
+          <select name="cardtype" required>
+            <option value="">Seleccione</option>
+            <option value="visa">Visa</option>
+            <option value="mastercard">Mastercard</option>
+            <option value="amex">American Express</option>
+          </select>
+        </label>
+        <div style="display:flex; gap:12px;">
+          <label style="flex:1;">
+            Mes/Año
+            <input type="text" name="expiry" placeholder="MM/AA" required pattern="(0[1-9]|1[0-2])\\/[0-9]{2}" title="Formato MM/AA">
+          </label>
+          <label style="flex:1;">
+            CVV
+            <input type="text" name="cvv" maxlength="4" required pattern="\\d{3,4}" title="3 o 4 dígitos">
+          </label>
+        </div>
+        <label>
+          Dirección de facturación
+          <input type="text" name="billing" required>
+        </label>
+
+        <button type="submit" class="blob-btn">Procesar pago</button>
+      </form>
+
+      <div id="payment-result" style="margin-top:12px;color:var(--text);display:none"></div>
+    </section>
+  </main>
+
+  <footer>© 2026 Ferretería JMK</footer>
+
+  <script>
+    document.getElementById('payment-form').addEventListener('submit', e => {
+      e.preventDefault();
+      // Mostrar mensaje de confirmación dentro de la página (sin alert)
+      const res = document.getElementById('payment-result');
+      if (res) {
+        res.style.display = 'block';
+        res.textContent = 'Pago procesado (simulación). Gracias por su compra.';
+      }
+      // opcional: limpiar campos o realizar otras acciones aquí
+    });
+  </script>
+</body>
+</html>

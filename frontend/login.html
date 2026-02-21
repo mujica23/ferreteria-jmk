@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Ferretería JMK</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #121212;
+    }
+
+    .login-card {
+      background: #1e1e1e;
+      padding: 40px;
+      border-radius: 15px;
+      width: 350px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.5);
+      text-align: center;
+    }
+
+    .login-card h2 {
+      margin-bottom: 25px;
+      color: #ff6200;
+    }
+
+    .login-card input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: none;
+      background: #2e2e2e;
+      color: #fff;
+    }
+
+    .login-card button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 30px;
+      border: none;
+      background: #ff6200;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .login-card button:hover {
+      background: #e65a00;
+      transform: scale(1.05);
+    }
+
+    .error {
+      color: #ff4d4d;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-card">
+  <h2>Iniciar Sesión</h2>
+
+  <form id="login-form">
+    <input type="text" id="usuario" placeholder="Usuario" required>
+    <input type="password" id="password" placeholder="Contraseña" required>
+    <button type="submit">Entrar</button>
+  </form>
+
+  <div class="error" id="error-msg"></div>
+</div>
+
+<script>
+  const form = document.getElementById("login-form");
+  const errorMsg = document.getElementById("error-msg");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const usuario = document.getElementById("usuario").value;
+    const password = document.getElementById("password").value;
+
+    try {
+      const res = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ usuario, password })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        errorMsg.textContent = data.mensaje;
+        return;
+      }
+
+      // 🔐 Guardar token
+      localStorage.setItem("token", data.token);
+
+      // Redirigir
+      window.location.href = "index.html";
+
+    } catch (error) {
+      errorMsg.textContent = "Error conectando con el servidor";
+    }
+  });
+</script>
+
+</body>
+</html>
