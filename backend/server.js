@@ -117,7 +117,7 @@ app.delete("/productos/:id", verificarToken, soloAdmin, (req, res) => {
 
 /* ================= PRODUCTOS PUBLICOS ================= */
 app.get("/productos-publicos", (req, res) => {
-  db.query("SELECT * FROM productos", (err, results) => {
+  db.query("SELECT * FROM railway.productos", (err, results) => {
     if (err) {
       console.error("Error al obtener productos:", err);
       return res.status(500).json({ mensaje: "Error al obtener productos" });
