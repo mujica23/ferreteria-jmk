@@ -115,17 +115,18 @@ app.delete("/productos/:id", verificarToken, soloAdmin, (req, res) => {
   });
 });
 
-/* ================= SERVER ================= */
-app.listen(process.env.PORT || 3000, () => {
-  console.log("🚀 Backend en http://localhost:3000");
+/* ================= PRODUCTOS PUBLICOS ================= */
+app.get("/productos-publicos", (req, res) => {
+  db.query("SELECT * FROM productos", (err, results) => {
+    if (err) {
+      console.error("Error al obtener productos:", err);
+      return res.status(500).json({ mensaje: "Error al obtener productos" });
+    }
+    res.json(results);
+  });
 });
 
-app.get('/productos-publicos', async (req, res) => {
-  try {
-    const [rows] = await pool.query("SELECT * FROM productos");
-    res.json(rows);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ mensaje: "Error al obtener productos" });
-  }
+/* ================= SERVER ================= */
+app.listen(process.env.PORT || 3000, () => {
+  console.log("🚀 Backend corriendo");
 });
