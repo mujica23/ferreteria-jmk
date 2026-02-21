@@ -61,23 +61,15 @@ if (logoutBtn) {
 }
 
 /* ================= OBTENER PRODUCTOS ================= */
-fetch(API + "/productos", {
-  headers: {
-    "Authorization": "Bearer " + token
-  }
-})
-.then(res => {
-  if (!res.ok) {
-    localStorage.removeItem("token");
-    window.location.href = "login.html";
-  }
-  return res.json();
-})
-.then(data => {
-  productos = data;
-  initProductos();
-})
-.catch(() => window.location.href = "login.html");
+fetch(API + "/productos-publicos")
+  .then(res => res.json())
+  .then(data => {
+    productos = data;
+    initProductos();
+  })
+  .catch(error => {
+    console.error("Error cargando productos:", error);
+  });
 
 /* ================= INICIALIZAR ================= */
 function initProductos() {
