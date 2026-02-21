@@ -87,14 +87,14 @@ app.get("/productos-publicos", (req, res) => {
 });
 
 /* ================= PRODUCTOS ADMIN ================= */
-app.get("/productos", verificarToken, soloAdmin, (req, res) => {
+app.get("/productos", (req, res) => {
   db.query("SELECT * FROM productos", (err, results) => {
     if (err) return res.status(500).json({ mensaje: "Error" });
     res.json(results);
   });
 });
 
-app.post("/productos", verificarToken, soloAdmin, upload.single("imagen"), (req, res) => {
+app.post("/productos", upload.single("imagen"), (req, res) => {
   const { nombre, precio, descripcion, stock, marca } = req.body;
   const imagen = req.file ? "/uploads/" + req.file.filename : null;
 
