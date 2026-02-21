@@ -101,7 +101,7 @@ function render(lista) {
   lista.forEach(p => {
     productosDiv.innerHTML += `
       <div class="card">
-        <img src="${API}${p.imagen}" 
+        <img src="${p.imagen}"
              alt="${p.nombre}" 
              loading="lazy"
              onerror="this.src='https://via.placeholder.com/200?text=Sin+Imagen'">
