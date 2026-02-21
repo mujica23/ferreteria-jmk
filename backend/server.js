@@ -119,3 +119,13 @@ app.delete("/productos/:id", verificarToken, soloAdmin, (req, res) => {
 app.listen(process.env.PORT || 3000, () => {
   console.log("🚀 Backend en http://localhost:3000");
 });
+
+app.get('/productos-publicos', async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM productos");
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al obtener productos" });
+  }
+});
