@@ -1,19 +1,19 @@
-require("dotenv").config();
+MYSQL_DATABASErequire("dotenv").config();
 const mysql = require("mysql2");
 
 const db = mysql.createConnection({
   host: process.env.MYSQLHOST,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT
+  database: process.env.MYSQL_DATABASE, // ← aquí está la corrección
+  port: process.env.MYSQLPORT,
 });
 
 db.connect((err) => {
   if (err) {
     console.error("Error conectando a MySQL:", err);
   } else {
-    console.log("MySQL conectado correctamente");
+    console.log("MySQL conectado correctamente 🚀");
   }
 });
 
