@@ -1,4 +1,4 @@
-const API = "https://TU-DOMINIO.up.railway.app";
+const API = "https://ferreteria-jmk-production.up.railway.app";
 
 /* ================= VARIABLES ================= */
 const productosDiv = document.getElementById("productos");
